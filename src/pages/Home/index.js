@@ -14,6 +14,11 @@ import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
   const {last} = useData()
+
+if (!last) {
+  return console.log("pas de prestation");
+}
+
   return <>
     <header>
       <Menu />
@@ -57,7 +62,7 @@ const Page = () => {
       </section>
       <section className="PeoplesContainer" id="notre-equipe">
         <h2 className="Title">Notre équipe</h2>
-        <p>Une équipe d’experts dédiés à l’ogranisation de vos événements</p>
+        <p>Une équipe d’experts dédiés à l’organisation de vos événements</p>
         <div className="ListContainer">
           <PeopleCard
             imageSrc="/images/stephanie-liverani-Zz5LQe-VSMY-unsplash.png"
@@ -108,7 +113,7 @@ const Page = () => {
             <Form
               onSuccess={() => {
   
-        setIsOpened(true)
+                setIsOpened(true)
               }}
               onError={() => setIsOpened(false)}
             />
@@ -124,7 +129,7 @@ const Page = () => {
           title={last?.title}
           date={new Date(last?.date)}
           small
-          label="boom"
+          label={last?.type}
         />
       </div>
       <div className="col contact">
