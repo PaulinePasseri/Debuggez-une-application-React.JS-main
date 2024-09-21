@@ -14,11 +14,6 @@ import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
   const {last} = useData()
-
-if (!last) {
-  return console.log("pas de prestation");
-}
-
   return <>
     <header>
       <Menu />
@@ -124,13 +119,16 @@ if (!last) {
     <footer className="row">
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
-        <EventCard
+        {last && (
+          <EventCard
           imageSrc={last?.cover}
           title={last?.title}
           date={new Date(last?.date)}
           small
           label={last?.type}
         />
+        )}
+        
       </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>
