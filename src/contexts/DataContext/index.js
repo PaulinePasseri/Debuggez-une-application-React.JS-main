@@ -48,16 +48,6 @@ DataProvider.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export const useData = () => {
-  const { data } = useContext(DataContext)
-  const sortedEvents = data
-    ? [...data.events].sort((a, b) => new Date(b.date) - new Date(a.date))
-    : []
-  const last = sortedEvents.length > 0 ? sortedEvents[0] : null
+export const useData = () => useContext(DataContext);
 
-  return {
-    data,
-    last,
-  }
-}
-export default DataContext
+export default DataContext;
