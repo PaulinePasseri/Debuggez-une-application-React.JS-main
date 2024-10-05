@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Menu from "../../containers/Menu";
 import ServiceCard from "../../components/ServiceCard";
 import EventCard from "../../components/EventCard";
@@ -12,8 +13,22 @@ import Form from "../../containers/Form";
 import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
+
 const Page = () => {
-  const {last} = useData()
+  const last  = useData(data => data.events);   
+  const [lastEvent, setLastEvent] = useState(null); 
+
+ 
+  useEffect(() => {
+    if (last && last.data && last.data.events) {
+        const lastData = last.data.events.reduce((latest, current) => {
+        const latestDate = new Date(latest.date);
+        const currentDate = new Date(current.date);
+        return latestDate > currentDate ? latest : current; 
+      });
+      setLastEvent(lastData); 
+    }
+  }, [last]); 
   return <>
     <header>
       <Menu />
@@ -119,13 +134,13 @@ const Page = () => {
     <footer className="row">
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
-        {last && (
+        {lastEvent && (
           <EventCard
-          imageSrc={last?.cover}
-          title={last?.title}
-          date={new Date(last?.date)}
+          imageSrc={lastEvent?.cover}
+          title={lastEvent?.title}
+          date={new Date(lastEvent?.date)}
           small
-          label={last?.type}
+          label={lastEvent?.type}
         />
         )}
         
