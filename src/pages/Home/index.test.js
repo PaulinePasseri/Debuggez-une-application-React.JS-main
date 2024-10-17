@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import Home from "./index";
+import Home from './index'
 
 describe("When Form is created", () => {
   it("a list of fields card is displayed", async () => {
@@ -29,16 +29,24 @@ describe("When Form is created", () => {
 
 
 describe("When a page is created", () => {
-  it("a list of events is displayed", () => {
-    // to implement
+  it("a list of events is displayed", async () => {
+    render(<Home/>)
+    const events = await screen.findAllByTestId("event-card")
+    expect(events.length).toBeGreaterThan(0)
   })
-  it("a list a people is displayed", () => {
-    // to implement
+  it("a list of people is displayed", async () => {
+    render(<Home/>)
+    const people = await screen.findAllByTestId("person-card")
+    expect(people.length).toBeGreaterThan(0)
   })
   it("a footer is displayed", () => {
-    // to implement
+    render(<Home/>)
+    const footer = screen.getByRole("contentinfo")
+    expect(footer).toBeInTheDocument();
   })
-  it("an event card, with the last event, is displayed", () => {
-    // to implement
+  it("an event card, with the last event, is displayed", async () => {
+    render(<Home/>)
+    const lastEvent = await screen.findByTestId("last-event-card")
+    expect(lastEvent).toBeInTheDocument()
   })
-});
+})
