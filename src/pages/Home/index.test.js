@@ -29,15 +29,15 @@ describe("When Form is created", () => {
 
 
 describe("When a page is created", () => {
-  it("a list of events is displayed", () => {
+  it("a list of events is displayed", async() => {
     render(<Page />);
-    const eventsTitle = screen.getByText("Nos réalisations");
+    const eventsTitle = await screen.getByRole('heading', { name: /Nos réalisations/i });
     expect(eventsTitle).toBeInTheDocument();
   });
 
-  it("a list of people is displayed", () => {
+  it("a list of people is displayed", async() => {
     render(<Page />);
-    const peopleTitle = screen.getByText("Notre équipe");
+    const peopleTitle = await screen.getByRole('heading', { level: 2, name: /Notre équipe/i });
     expect(peopleTitle).toBeInTheDocument();
   });
 
